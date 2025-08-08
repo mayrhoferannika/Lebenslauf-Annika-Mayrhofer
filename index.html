@@ -1,136 +1,436 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Annika – Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Annika — Portfolio</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.min.css" />
+
+  <!-- AOS for subtle animations -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      color: #333;
+    :root{
+      --accent: #546354;
+      --accent-2: #6a7a6a;
+      --bg: #0f1113; /* dark base */
+      --card: #0f1312;
+      --muted: #9aa29a;
+      --glass: rgba(255,255,255,0.03);
+      --max-width: 1100px;
     }
-    .section {
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 40px;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Poppins",system-ui,Segoe UI,Helvetica,Arial,sans-serif;
+      background: linear-gradient(180deg, #07100f 0%, #0c1412 100%);
+      color:#e7efe7;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
     }
-    h1 {
-      font-size: 3rem;
-      color: #546354;
+
+    /* Layout container */
+    .wrap{
+      max-width: var(--max-width);
+      margin: 32px auto;
+      padding: 24px;
     }
-    h2 {
-      color: #546354;
-      margin-bottom: 20px;
+
+    /* Header / Hero */
+    .hero{
+      display:grid;
+      grid-template-columns: 360px 1fr;
+      gap: 28px;
+      align-items:center;
+      margin-bottom: 34px;
     }
-    p {
-      max-width: 700px;
-      line-height: 1.6;
+    @media (max-width:900px){
+      .hero{grid-template-columns: 1fr; text-align:center}
     }
-    img.profile {
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid #546354;
-      margin-bottom: 20px;
+
+    .portrait {
+      width:320px;
+      height:320px;
+      border-radius:20px;
+      overflow:hidden;
+      border: 6px solid rgba(84,99,84,0.15);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      background: linear-gradient(180deg, rgba(84,99,84,0.06), rgba(255,255,255,0.01));
+      margin:auto;
     }
-    ul {
-      list-style: none;
-      padding: 0;
+    .portrait img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
     }
-    ul li {
-      margin: 8px 0;
+
+    .intro{
+      padding: 18px 8px;
     }
-    ul li i {
-      color: #546354;
-      margin-right: 8px;
+    .name{
+      color:var(--accent);
+      font-weight:700;
+      font-size:42px;
+      margin:0 0 6px 0;
+      letter-spacing:0.2px;
     }
-    .contact-icons a {
-      margin: 0 15px;
-      font-size: 1.8rem;
-      color: #546354;
-      transition: color 0.3s;
+    .subtitle{
+      color:var(--muted);
+      margin:0 0 16px 0;
+      font-weight:500;
     }
-    .contact-icons a:hover {
-      color: #333;
+    .lead{
+      color:#dfe9df;
+      margin:0 0 20px 0;
+      max-width:680px;
+      font-size:16px;
     }
+    .cta {
+      display:inline-grid;
+      grid-auto-flow:column;
+      gap:12px;
+      align-items:center;
+    }
+    .btn {
+      background:var(--accent);
+      color:#fff;
+      border:none;
+      padding:10px 16px;
+      border-radius:10px;
+      font-weight:600;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+    }
+    .btn.secondary{
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.06);
+      color:var(--muted);
+      padding:10px 14px;
+    }
+
+    /* Sections */
+    section.card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:14px;
+      padding:22px;
+      margin-bottom:22px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      display:flex;
+      gap:20px;
+    }
+    .two-col{display:grid; grid-template-columns: 1fr 420px; gap:20px;}
+    @media (max-width:1000px){ .two-col{grid-template-columns: 1fr} }
+
+    /* About & Skills board */
+    .about-text { color:#e7efe7; }
+    .skills-board{
+      background: linear-gradient(180deg, rgba(84,99,84,0.07), rgba(0,0,0,0.18));
+      border-radius:12px;
+      padding:16px;
+      min-height:180px;
+    }
+    .skill-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
+    .skill{
+      display:flex; align-items:center; gap:12px; padding:8px; border-radius:10px;
+      background:rgba(255,255,255,0.015);
+      border:1px solid rgba(255,255,255,0.02);
+    }
+    .skill .icon{ width:36px; height:36px; border-radius:8px; display:flex;align-items:center;justify-content:center; background: rgba(84,99,84,0.12); color:var(--accent); font-size:16px; }
+    .skill .meta{ color:#dbe7db; font-weight:600; font-size:14px; }
+
+    /* Timeline styling */
+    .timeline {
+      position:relative;
+      padding-left:24px;
+    }
+    .timeline::before{
+      content:"";
+      position:absolute;
+      left:8px;
+      top:6px;
+      bottom:6px;
+      width:2px;
+      background:linear-gradient(180deg,var(--accent),var(--accent-2));
+      border-radius:2px;
+    }
+    .timeline-item{
+      position:relative;
+      margin:14px 0 28px 18px;
+      padding:14px;
+      border-radius:10px;
+      background: rgba(255,255,255,0.015);
+      border:1px solid rgba(255,255,255,0.02);
+    }
+    .timeline-item .meta{ color:var(--muted); font-weight:600; margin-bottom:8px; }
+    .timeline-item .title{ color:#e7efe7; font-weight:700; margin-bottom:6px; }
+
+    /* Experience cards */
+    .experience-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+    @media (max-width:900px){ .experience-grid{ grid-template-columns: 1fr } }
+    .exp-card{
+      padding:14px;
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+      border:1px solid rgba(255,255,255,0.02);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .exp-card:hover{ transform: translateY(-8px); box-shadow: 0 16px 40px rgba(0,0,0,0.6); }
+
+    /* Languages & Tools */
+    .skill-bar{ margin-bottom:12px; }
+    .bar-track{ background: rgba(255,255,255,0.03); height:10px; border-radius:8px; overflow:hidden; }
+    .bar-fill{ height:100%; background:linear-gradient(90deg,var(--accent),var(--accent-2)); width:60%; }
+
+    .tools-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:10px; margin-top:12px; }
+    .tool-box{ padding:10px; border-radius:10px; background:rgba(255,255,255,0.015); text-align:center; color:#dfe9df; font-weight:600; }
+
+    /* Contact */
+    .contact{
+      display:flex; align-items:center; justify-content:space-between; gap:20px;
+    }
+    @media (max-width:760px){ .contact{ flex-direction:column; text-align:center } }
+    .contact .contact-left{ max-width:640px; }
+    .contact-icons{ display:flex; gap:18px; align-items:center; justify-content:flex-end; }
+    @media (max-width:760px){ .contact-icons{ justify-content:center } }
+    .icon-btn{
+      display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:10px; color:#eaf3ea; text-decoration:none;
+      background: linear-gradient(180deg, rgba(84,99,84,0.12), rgba(84,99,84,0.06));
+      border:1px solid rgba(255,255,255,0.02);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .icon-btn:hover{ transform:translateY(-6px); box-shadow: 0 10px 30px rgba(0,0,0,0.5) }
+
+    footer { text-align:center; color:var(--muted); margin-top:18px; font-size:13px }
+    .muted{ color:var(--muted) }
+
+    /* small helpers */
+    .small { font-size:13px; color:var(--muted); }
   </style>
 </head>
 <body>
+  <div class="wrap">
 
-<div id="fullpage">
-  <!-- Slide 1: Intro -->
-  <div class="section">
-    <img src="profilbild.jpg" alt="Profile Picture" class="profile">
-    <h1>Annika</h1>
-    <p>Hi, I'm Annika, a trained Industrial Clerk. I am open to new challenges, eager to learn new skills, and bring value to any work environment through my dedication, versatility, and knowledge in various areas. My goal is to contribute positively with my expertise and motivation.</p>
-  </div>
+    <!-- HERO -->
+    <header class="hero" data-aos="fade-up">
+      <div class="portrait" aria-hidden="false">
+        <img src="profilbild.jpg" alt="Annika Mayrhofer — portrait">
+      </div>
 
-  <!-- Slide 2: Education -->
-  <div class="section">
-    <h2>Education</h2>
-    <ul>
-      <li><i class="fa-solid fa-graduation-cap"></i> Gymnasium Schärding – Matura (2013–2021)</li>
-      <li><i class="fa-solid fa-briefcase"></i> Industrial Clerk Apprenticeship – ETERNA Mode GmbH (2022–01/2025)</li>
-      <li><i class="fa-solid fa-language"></i> Foreign Language Correspondent English – IHK Passau (01–06/2025)</li>
-      <li><i class="fa-solid fa-seedling"></i> BSc Environmental & Bioresource Management – starting 10/2025</li>
-    </ul>
-  </div>
+      <div class="intro">
+        <div class="name">Annika</div>
+        <div class="subtitle">Industrial Clerk • Open to new skills & student positions</div>
+        <p class="lead">
+          Hi — I'm Annika, a trained Industrial Clerk who brings engagement, versatility and practical knowledge to diverse work environments.
+          I am eager to develop new skills and contribute positively with dedication and a broad understanding of administrative and operational tasks.
+        </p>
 
-  <!-- Slide 3: Experience -->
-  <div class="section">
-    <h2>Professional Experience</h2>
-    <ul>
-      <li><i class="fa-solid fa-building"></i> Assistant – ETERNA Mode GmbH (2020–2021)</li>
-      <li><i class="fa-solid fa-store"></i> Internship – denk-outdoor.de (08/2021)</li>
-      <li><i class="fa-solid fa-vial"></i> Assistant – MVZ Laboratory Passau (04–06/2022)</li>
-      <li><i class="fa-solid fa-person-skiing"></i> Ski Instructor – SSS Asitz Leogang (01–03/2025)</li>
-    </ul>
-  </div>
+        <div class="cta">
+          <a class="btn" href="#about">Explore my profile</a>
+          <a class="btn secondary" href="#contact">Contact</a>
+        </div>
+      </div>
+    </header>
 
-  <!-- Slide 4: Skills -->
-  <div class="section">
-    <h2>Languages & Software Skills</h2>
-    <ul>
-      <li><i class="fa-solid fa-check"></i> German – Native</li>
-      <li><i class="fa-solid fa-check"></i> English – C1 Level</li>
-      <li><i class="fa-solid fa-check"></i> Spanish – A2 Level</li>
-      <li><i class="fa-solid fa-desktop"></i> SAP</li>
-      <li><i class="fa-solid fa-file-word"></i> MS Office Suite</li>
-      <li><i class="fa-solid fa-chart-line"></i> Salesforce</li>
-      <li><i class="fa-solid fa-pen-nib"></i> Adobe InDesign – Basic</li>
-      <li><i class="fa-solid fa-image"></i> Adobe Photoshop – Basic</li>
-    </ul>
-  </div>
+    <!-- ABOUT + SKILLS -->
+    <section id="about" class="card" data-aos="fade-up">
+      <div class="two-col" style="width:100%">
+        <div>
+          <h3 style="color:var(--accent); margin-top:0">About</h3>
+          <p class="about-text">
+            I completed vocational training as an Industrial Clerk at ETERNA Mode GmbH and have practical experience in retail, laboratory administration and seasonal sports instruction.
+            I value efficient teamwork, dependable execution and continuous learning. I am seeking student jobs that allow me to further develop my skills — especially in administrative processes, digital tools and customer-oriented roles.
+          </p>
 
-  <!-- Slide 5: Contact -->
-  <div class="section">
-    <h2>Contact</h2>
-    <div class="contact-icons">
-      <a href="https://www.linkedin.com/in/annika-mayrhofer-2aa625337?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"><i class="fab fa-linkedin"></i></a>
-      <a href="tel:+43676821234411"><i class="fa-solid fa-phone"></i></a>
-      <a href="mailto:mayrhoferannika@gmail.com"><i class="fa-solid fa-envelope"></i></a>
-    </div>
-  </div>
-</div>
+          <h4 style="color:var(--accent); margin-bottom:8px">Core strengths</h4>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <div class="skill" style="min-width:160px"><div class="icon"><i class="fa-solid fa-check"></i></div><div class="meta">Highly engaged</div></div>
+            <div class="skill" style="min-width:160px"><div class="icon"><i class="fa-solid fa-people-group"></i></div><div class="meta">Team player</div></div>
+            <div class="skill" style="min-width:160px"><div class="icon"><i class="fa-solid fa-lightbulb"></i></div><div class="meta">Fast learner</div></div>
+            <div class="skill" style="min-width:160px"><div class="icon"><i class="fa-solid fa-gear"></i></div><div class="meta">Organised</div></div>
+          </div>
+        </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.min.js"></script>
-<script>
-  new fullpage('#fullpage', {
-    autoScrolling: true,
-    navigation: true,
-    navigationPosition: 'right',
-    scrollingSpeed: 800
-  });
-</script>
+        <aside class="skills-board" data-aos="fade-left">
+          <h4 style="margin-top:0;color:var(--accent)">Technical & Software Skills</h4>
+          <div class="skill-grid" style="margin-top:12px">
+            <div class="skill"><div class="icon"><i class="fa-solid fa-computer"></i></div><div class="meta">SAP</div></div>
+            <div class="skill"><div class="icon"><i class="fa-solid fa-file-lines"></i></div><div class="meta">MS Office</div></div>
+            <div class="skill"><div class="icon"><i class="fa-brands fa-salesforce"></i></div><div class="meta">Salesforce</div></div>
+            <div class="skill"><div class="icon"><i class="fa-solid fa-pen-nib"></i></div><div class="meta">Adobe InDesign (basic)</div></div>
+            <div class="skill"><div class="icon"><i class="fa-solid fa-image"></i></div><div class="meta">Photoshop (basic)</div></div>
+            <div class="skill"><div class="icon"><i class="fa-solid fa-globe"></i></div><div class="meta">English (C1)</div></div>
+          </div>
 
+          <div style="margin-top:18px">
+            <div class="small">Also familiar with: administrative workflows, customer support, data entry and seasonal operations.</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- EDUCATION (timeline) -->
+    <section class="card" data-aos="fade-up">
+      <div style="width:100%">
+        <h3 style="color:var(--accent)">Education</h3>
+        <div class="timeline" style="margin-top:18px">
+          <div class="timeline-item" data-aos="fade-up" data-aos-delay="50">
+            <div class="meta">2013 – 2021</div>
+            <div class="title">Gymnasium Schärding</div>
+            <div class="small">Matura — general secondary education</div>
+            <p class="small muted" style="margin-top:8px">Comprehensive secondary education with focus on general academic foundations.</p>
+          </div>
+
+          <div class="timeline-item" data-aos="fade-up" data-aos-delay="120">
+            <div class="meta">2022 – Jan 2025</div>
+            <div class="title">Apprenticeship: Industrial Clerk — ETERNA Mode GmbH</div>
+            <div class="small">Commercial apprenticeship with industrial focus</div>
+            <p class="small muted" style="margin-top:8px">
+              Completed vocational training in a corporate environment — responsibilities included administrative support, documentation, coordination with departments and process-oriented tasks.
+            </p>
+          </div>
+
+          <div class="timeline-item" data-aos="fade-up" data-aos-delay="190">
+            <div class="meta">Jan 2025 – Jun 2025</div>
+            <div class="title">Foreign Language Correspondent (English) — IHK Passau</div>
+            <div class="small">Professional English for business contexts</div>
+            <p class="small muted" style="margin-top:8px">
+              Intensive course focused on written and spoken business English and correspondence. (Certificate: IHK Passau)
+            </p>
+          </div>
+
+          <div class="timeline-item" data-aos="fade-up" data-aos-delay="260">
+            <div class="meta">From Oct 2025</div>
+            <div class="title">BSc Environmental & Bioresource Management (planned)</div>
+            <div class="small">Study start scheduled — focus on environmental systems and resource management</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="card" data-aos="fade-up">
+      <div style="width:100%">
+        <h3 style="color:var(--accent)">Professional Experience</h3>
+        <div class="experience-grid" style="margin-top:18px">
+          <div class="exp-card" data-aos="fade-up">
+            <div class="meta small">2020 – 2021</div>
+            <div class="title">Assistant — ETERNA Mode GmbH</div>
+            <p class="small muted">Worked as a temporary assistant supporting store and operational tasks; gained insight into corporate processes and customer interactions.</p>
+          </div>
+
+          <div class="exp-card" data-aos="fade-up" data-aos-delay="60">
+            <div class="meta small">Aug 2021</div>
+            <div class="title">Intern — denk-outdoor.de</div>
+            <p class="small muted">Hands-on retail internship: customer service, merchandise presentation and daily shop operations.</p>
+          </div>
+
+          <div class="exp-card" data-aos="fade-up" data-aos-delay="120">
+            <div class="meta small">Apr 2022 – Jun 2022</div>
+            <div class="title">Assistant — MVZ Laboratory, Passau</div>
+            <p class="small muted">Administrative support in laboratory operations, including data entry and management of test records.</p>
+          </div>
+
+          <div class="exp-card" data-aos="fade-up" data-aos-delay="180">
+            <div class="meta small">Jan 2025 – Mar 2025</div>
+            <div class="title">Ski Instructor — SSS Asitz, Leogang</div>
+            <p class="small muted">Taught and supervised skiing lessons for children and adults; responsibility for safety and skill progression.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LANGUAGES & TOOLS -->
+    <section class="card" data-aos="fade-up">
+      <div class="two-col">
+        <div>
+          <h3 style="color:var(--accent)">Languages</h3>
+          <div style="margin-top:10px">
+            <div class="skill-bar">
+              <div class="small">German — Native</div>
+              <div class="bar-track" aria-hidden="true"><div class="bar-fill" style="width:98%"></div></div>
+            </div>
+            <div class="skill-bar">
+              <div class="small">English — C1</div>
+              <div class="bar-track" aria-hidden="true"><div class="bar-fill" style="width:88%"></div></div>
+            </div>
+            <div class="skill-bar">
+              <div class="small">Spanish — A2</div>
+              <div class="bar-track" aria-hidden="true"><div class="bar-fill" style="width:36%"></div></div>
+            </div>
+          </div>
+
+          <h4 style="color:var(--accent); margin-top:18px">Software & Tools</h4>
+          <div class="tools-grid">
+            <div class="tool-box"><i class="fa-solid fa-desktop" style="color:var(--accent)"></i> SAP</div>
+            <div class="tool-box"><i class="fa-solid fa-file-lines" style="color:var(--accent)"></i> MS Office</div>
+            <div class="tool-box"><i class="fa-brands fa-salesforce" style="color:var(--accent)"></i> Salesforce</div>
+            <div class="tool-box"><i class="fa-solid fa-pen-nib" style="color:var(--accent)"></i> InDesign (basic)</div>
+            <div class="tool-box"><i class="fa-solid fa-image" style="color:var(--accent)"></i> Photoshop (basic)</div>
+            <div class="tool-box"><i class="fa-solid fa-database" style="color:var(--accent)"></i> Data entry & admin</div>
+          </div>
+        </div>
+
+        <aside class="skills-board" data-aos="fade-left">
+          <h4 style="color:var(--accent); margin-top:0">What I bring</h4>
+          <p class="small muted">
+            Practical experience across retail, laboratory and corporate apprenticeship settings, combined with a strong willingness to learn new digital tools.
+            I add value through reliability, quick learning and a hands-on mindset — ideal for student positions that require flexibility and initiative.
+          </p>
+
+          <div style="margin-top:18px">
+            <div class="small" style="margin-bottom:8px">Relevant for Werkstudent roles:</div>
+            <ul style="color:#dfe9df; padding-left:16px; margin:0">
+              <li class="small">Administrative support & process understanding</li>
+              <li class="small">Customer-facing tasks & communication</li>
+              <li class="small">Basic digital tool proficiency (SAP, Salesforce, MS Office)</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="card" data-aos="fade-up">
+      <div class="contact" style="width:100%">
+        <div class="contact-left">
+          <h3 style="color:var(--accent)">Contact</h3>
+          <p class="small muted">If you'd like to discuss a student job or project, feel free to reach out. I respond quickly to messages and enjoy collaborative work.</p>
+        </div>
+
+        <div class="contact-icons" aria-hidden="false">
+          <a class="icon-btn" href="https://www.linkedin.com/in/annika-mayrhofer-2aa625337?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" rel="noopener">
+            <i class="fa-brands fa-linkedin" style="font-size:18px"></i><span class="small">LinkedIn</span>
+          </a>
+          <a class="icon-btn" href="tel:+43676821234411">
+            <i class="fa-solid fa-phone" style="font-size:18px"></i><span class="small">+43 676 821234411</span>
+          </a>
+          <a class="icon-btn" href="mailto:mayrhoferannika@gmail.com">
+            <i class="fa-solid fa-envelope" style="font-size:18px"></i><span class="small">mayrhoferannika@gmail.com</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      &copy; 2025 Annika Mayrhofer — CV & Student Portfolio
+    </footer>
+
+  </div> <!-- wrap -->
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({ duration: 700, once: true, easing: 'ease-out-cubic' });
+  </script>
 </body>
 </html>
 
